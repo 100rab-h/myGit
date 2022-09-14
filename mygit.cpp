@@ -11,11 +11,13 @@
 #include "status.hpp"
 #include "log.hpp"
 #include "add.hpp"
+#include "commit.hpp"
 
 using namespace std;
 using namespace myGitStatus;
 using namespace myGitLog;
 using namespace myGitAdd;
+using namespace myGitCommit;
 
 int init();
 
@@ -60,9 +62,14 @@ int main(int argc, char** argv) {
             exit(EXIT_SUCCESS);
         }
     }
-    // else if (str == "commit") {
-
-    // }
+    else if (str == "commit") {
+        if (myGitCommit::commit()) {
+            string s = "Mygit commit executed";
+            myGitLog::log_write(s);
+            cout << s << endl;
+            exit(EXIT_SUCCESS);
+        }
+    }
     // else if (str == "rollback") {
 
     // }
