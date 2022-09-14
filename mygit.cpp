@@ -10,10 +10,12 @@
 
 // #include "status.hpp"
 #include "log.hpp"
+#include "add.hpp"
 
 using namespace std;
 // using namespace myGitStatus;
 using namespace myGitLog;
+using namespace myGitAdd;
 
 int init();
 
@@ -50,9 +52,14 @@ int main(int argc, char** argv) {
             exit(EXIT_SUCCESS);
         }
     }
-    // else if (str == "add") {
-
-    // }
+    else if (str == "add") {
+        if (myGitAdd::add()) {
+            string s = "Mygit add executed.";
+            myGitLog::log_write(s);
+            cout << s << endl;
+            exit(EXIT_SUCCESS);
+        }
+    }
     // else if (str == "commit") {
 
     // }
