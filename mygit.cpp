@@ -8,10 +8,12 @@
 #include <string>
 #include <fstream>
 
-#include "status.hpp"
+// #include "status.hpp"
+#include "log.hpp"
 
 using namespace std;
-using namespace myGitStatus;
+// using namespace myGitStatus;
+using namespace myGitLog;
 
 int init();
 
@@ -23,12 +25,12 @@ int main(int argc, char** argv) {
     if (str == "init") {
         if (init()) {
             string s = "Mygit successfully initialised.";
-            // write it to log
+            myGitLog::log_write(s);
             cout << s << endl;
             exit(EXIT_SUCCESS);
         } else {
             string s = "Error in initialisation.";
-            // write it to log
+            myGitLog::log_write(s);
             cout << s << endl;
             exit(EXIT_SUCCESS);
         }
@@ -38,12 +40,12 @@ int main(int argc, char** argv) {
     else if (str == "status") {
         if (myGitStatus::status()) {
             string s = "Mygit status executed.";
-            // write it to log.
+            myGitLog::log_write(s);
             cout << s << endl;
             exit(EXIT_SUCCESS);
         } else {
             string s = "Error in Status.";
-            // write it to log.
+            myGitLog::log_write(s);
             cout << s << endl;
             exit(EXIT_SUCCESS);
         }
@@ -57,9 +59,13 @@ int main(int argc, char** argv) {
     // else if (str == "rollback") {
 
     // }
-    // else if (str == "log") {
-
-    // }
+    else if (str == "log") {
+        myGitLog::log_print();
+        string s = "Mygit log print Executed.";
+        log_write(s);
+        cout << s << endl;
+        exit(EXIT_SUCCESS);
+    }
     // else if (str == "push") {
 
     // }
