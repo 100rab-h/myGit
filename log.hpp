@@ -5,22 +5,24 @@ namespace myGitLog {
 #include <fstream>
 #include <cstring>
 #include <ctime>
+#include <unistd.h>
 
-#include "status.hpp"
+// #include "status.hpp"
 
 
 using namespace std;
-using namespace myGitStatus;
+// using namespace myGitStatus;
 
 string log_path;
 
+string get_cwd();
 void log_print();
 void log_write(string);
 string currenttime();
 
 
 void log_print() {
-    log_path = myGitStatus::get_cwd();
+    log_path = get_cwd();
     log_path += "/.mygit/log.txt";  //goto log.txt file which resides in .mygit folder.
 
     string s;
@@ -35,7 +37,7 @@ void log_print() {
 }
 
 void log_write(string str) {
-    log_path = myGitStatus::get_cwd();
+    log_path = get_cwd();
     log_path += "/.mygit/log.txt";
 
     ofstream fout;
@@ -56,6 +58,20 @@ string currenttime() {
 
     time += timehour + ":" + timemin + ":" + timesec;
     return time;
+}
+
+string get_cwd() {
+    char cwd_path[PATH_MAX];
+    string current_path;
+    
+    if (getcwd(cwd_path, sizeof(cwd_path)) != NULL) {
+        current_path = cwd_path; 
+    } else {
+        perror("Unable to get current working directory");
+        exit(1);
+    }
+
+    return current_path;
 }
 
 }

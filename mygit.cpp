@@ -8,12 +8,12 @@
 #include <string>
 #include <fstream>
 
-// #include "status.hpp"
+#include "status.hpp"
 #include "log.hpp"
 #include "add.hpp"
 
 using namespace std;
-// using namespace myGitStatus;
+using namespace myGitStatus;
 using namespace myGitLog;
 using namespace myGitAdd;
 
