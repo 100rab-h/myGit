@@ -12,6 +12,7 @@
 #include "status.hpp"
 #include "add.hpp"
 #include "commit.hpp"
+#include "push.hpp"
 #include "rollback.hpp"
 
 using namespace std;
@@ -19,6 +20,7 @@ using namespace myGitLog;
 using namespace myGitStatus;
 using namespace myGitAdd;
 using namespace myGitCommit;
+using namespace myGitPush;
 using namespace myGitRollback;
 
 int init();
@@ -89,9 +91,13 @@ int main(int argc, char** argv) {
         cout << s << endl;
         exit(EXIT_SUCCESS);
     }
-    // else if (str == "push") {
-
-    // }
+    else if (str == "push") {
+        myGitPush::push();
+        string s = "Mygit push Executed.";
+        myGitLog::log_write(s);
+        cout << s << endl;
+        exit(EXIT_SUCCESS);
+    }
     // else if (str == "merge") {
 
     // }
