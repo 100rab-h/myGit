@@ -12,6 +12,7 @@
 #include "status.hpp"
 #include "add.hpp"
 #include "commit.hpp"
+#include "pull.hpp"
 #include "push.hpp"
 #include "rollback.hpp"
 
@@ -20,6 +21,7 @@ using namespace myGitLog;
 using namespace myGitStatus;
 using namespace myGitAdd;
 using namespace myGitCommit;
+using namespace myGitPull;
 using namespace myGitPush;
 using namespace myGitRollback;
 
@@ -88,6 +90,13 @@ int main(int argc, char** argv) {
         myGitLog::log_print();
         string s = "Mygit log print Executed.";
         log_write(s);
+        cout << s << endl;
+        exit(EXIT_SUCCESS);
+    }
+    else if (str == "pull") {
+        myGitPull::pul();
+        string s = "Mygit pull executed.";
+        myGitLog::log_write();
         cout << s << endl;
         exit(EXIT_SUCCESS);
     }
