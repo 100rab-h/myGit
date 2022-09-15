@@ -8,16 +8,18 @@
 #include <string>
 #include <fstream>
 
-#include "status.hpp"
 #include "log.hpp"
+#include "status.hpp"
 #include "add.hpp"
 #include "commit.hpp"
+#include "rollback.hpp"
 
 using namespace std;
-using namespace myGitStatus;
 using namespace myGitLog;
+using namespace myGitStatus;
 using namespace myGitAdd;
 using namespace myGitCommit;
+using namespace myGitRollback;
 
 int init();
 
@@ -70,9 +72,16 @@ int main(int argc, char** argv) {
             exit(EXIT_SUCCESS);
         }
     }
-    // else if (str == "rollback") {
-
-    // }
+    else if (str == "rollback") {
+        int n = myGitRollback::rollback();
+        if (n == 1) {
+            cout << "Rollback successfully to the previous version." << endl;
+        }
+        string s = "Mygit rollback executed";
+        myGitLog::log_write(s);
+        cout << s << endl;
+        exit(EXIT_SUCCESS);
+    }
     else if (str == "log") {
         myGitLog::log_print();
         string s = "Mygit log print Executed.";

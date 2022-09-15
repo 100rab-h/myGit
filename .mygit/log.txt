@@ -1,3 +1,0 @@
-14:1:18 : Error in initialisation.
-14:2:26 : Mygit log print Executed.
-16:54:55 : Mygit log print Executed.
