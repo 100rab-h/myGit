@@ -14,6 +14,7 @@
 #include "commit.hpp"
 #include "pull.hpp"
 #include "push.hpp"
+#include "merge.hpp"
 #include "rollback.hpp"
 
 using namespace std;
@@ -23,6 +24,7 @@ using namespace myGitAdd;
 using namespace myGitCommit;
 using namespace myGitPull;
 using namespace myGitPush;
+using namespace myGitMerge;
 using namespace myGitRollback;
 
 int init();
@@ -107,9 +109,13 @@ int main(int argc, char** argv) {
         cout << s << endl;
         exit(EXIT_SUCCESS);
     }
-    // else if (str == "merge") {
-
-    // }
+    else if (str == "merge") {
+        myGitMerge::merge();
+        string s = "Mygit Merge executed.";
+        myGitLog::log_write(s);
+        cout << s << endl;
+        exit(EXIT_SUCCESS);
+    }
     // else if (str == "retrieve_version_no") {
 
     // }
