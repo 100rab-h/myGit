@@ -1,4 +1,4 @@
-namespace mygitmerge
+namespace myGitMerge
 {
 #include <iostream>
 #include <bits/stdc++.h>
