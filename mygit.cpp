@@ -28,6 +28,9 @@ using namespace myGitMerge;
 using namespace myGitRollback;
 
 int init();
+string retrieve_version_no();
+void retrieve_sha(string, string);
+void retrieve_filename(string, string);
 
 int main(int argc, char** argv) { 
     // char * p = argv[1];
@@ -91,14 +94,14 @@ int main(int argc, char** argv) {
     else if (str == "log") {
         myGitLog::log_print();
         string s = "Mygit log print Executed.";
-        log_write(s);
+        myGitLog::log_write(s);
         cout << s << endl;
         exit(EXIT_SUCCESS);
     }
     else if (str == "pull") {
-        myGitPull::pul();
+        myGitPull::pull();
         string s = "Mygit pull executed.";
-        myGitLog::log_write();
+        myGitLog::log_write(s);
         cout << s << endl;
         exit(EXIT_SUCCESS);
     }
@@ -116,15 +119,29 @@ int main(int argc, char** argv) {
         cout << s << endl;
         exit(EXIT_SUCCESS);
     }
-    // else if (str == "retrieve_version_no") {
-
-    // }
-    // else if (str == "retrieve_sha") {
-
-    // }
-    // else if (str == "retrieve_filename") {
-
-    // } 
+    else if (str == "retrieve_version_no") {
+        string version_no = retrieve_version_no();
+        cout << "version no : " << version_no << endl;
+        string s = "Mygit version retrieve executed";
+        myGitLog::log_write(s);
+        cout << s << endl;
+        exit(EXIT_SUCCESS);
+    }
+    else if (str == "retrieve_sha") {
+         
+        retrieve_sha(argv[2],argv[3]);
+        string s = "Mygit retrieve sha executed";
+        myGitLog::log_write(s);
+        cout << s << endl;
+        exit(EXIT_SUCCESS);
+    }
+    else if (str == "retrieve_filename") {
+        retrieve_filename(argv[2],argv[3]);
+        string s = "Mygit retrieve filename executed";
+        myGitLog::log_write(s);
+        cout << s << endl;
+        exit(EXIT_SUCCESS);
+    } 
     else {
         cout << str << " is not a Git command. " << endl;
         cout << "These are common Git commands :" << endl;
@@ -250,4 +267,79 @@ int init() {
     if (createmygitdir and chdirmygit and createversion0dir and chdirversion0 and createIndexVersion0) return 1;
     else return 0;
 
+}
+
+string retrieve_version_no() {
+    string cwd_path = myGitStatus::get_cwd();
+    string mygit_path = cwd_path + "/.mygit/";
+
+    //reading version_no file to get current version number
+    string version_no_file_path = mygit_path + "version_no.txt";
+    fstream version_no_file(version_no_file_path, std::ios_base::in);
+    string version_no;
+    version_no_file >> version_no;
+    version_no_file.close();
+
+    return (version_no);
+}
+
+void retrieve_sha(string filename, string version_no)
+{   
+    //getting current working directory
+    string cwd_path = myGitStatus::get_cwd();
+    string mygit_path = cwd_path + "/.mygit/";
+    
+    string version_no_file_path = mygit_path + version_no + "/index.txt";
+    
+    map<string, string> files = myGitStatus::get_map(version_no_file_path);
+
+    string sha = "";
+    //retrieving sha of given file
+    for (auto it : files)
+    {
+        if (it.first == filename)
+        {
+            sha = it.second;
+            break;
+        }
+    }
+    if (sha == "")
+    {
+        cout << "file with given filename not found in the given version...unable to retrieve sha" << endl;
+    }
+    else
+    {
+        cout <<"sha : "<< sha << endl;
+    }
+}
+
+void retrieve_filename(string sha, string version_no)
+{   
+    //getting current working directory
+    string cwd_path = myGitStatus::get_cwd();
+    string mygit_path = cwd_path + "/.mygit/";
+    
+    string version_no_file_path = mygit_path + version_no + "/index.txt";
+    
+    map<string, string> files = myGitStatus::get_map(version_no_file_path);
+
+
+    string filename = "";
+    //retrieving filename of given file
+    for (auto it : files)
+    {
+        if (it.second == sha)
+        {
+            filename = it.first;
+            break;
+        }
+    }
+    if (filename == "")
+    {
+        cout << "file with given sha not found in the given version...unable to retrieve filename" << endl;
+    }
+    else
+    {
+        cout << "filename : "<< filename << endl;
+    }
 }
